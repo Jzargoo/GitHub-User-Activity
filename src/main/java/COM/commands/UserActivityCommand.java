@@ -26,7 +26,7 @@ public class UserActivityCommand {
             mapper = new ObjectMapper();
             return mapper.readValue(json,  User[].class);
 
-        } catch (IOException | URISyntaxException | InterruptedException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
