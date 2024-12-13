@@ -56,93 +56,79 @@ public class UserActivityCommand {
         users = Deserialize(name);
         arr = groupEvents();
 
-        for (ArrayList<User> userGroup : arr) {
+        for(ArrayList<User> user: arr) {
 
-            User user = userGroup.get(0);
-            String eventType = user.getType();
-            int eventCount = userGroup.size();
+            switch (user.get(0).getType()) {
 
-            switch (eventType) {
+                case "CommitCommentEvent" ->
+                    System.out.println("--- Added " + (user.size() > 1 ? user.size() : "") +
+                            " commit comment(s) in repository " + user.get(0).getRepo().getName());
 
-                case "CommitCommentEvent" -> {
-                    System.out.println("--- Added " + (eventCount > 1 ? eventCount : "") +
-                            " commit comment(s) in repository " + user.getRepo().getName());
-                }
 
-                case "CreateEvent" -> {
-                    System.out.println("--- Created a new resource in repository: " + user.getRepo().getName());
-                }
+                case "CreateEvent" ->
+                    System.out.println("--- Created a new resource in repository: " + user.get(0).getRepo().getName());
 
-                case "DeleteEvent" -> {
-                    System.out.println("--- Deleted a resource in repository: " + user.getRepo().getName());
-                }
 
-                case "ForkEvent" -> {
-                    System.out.println("--- Forked repository " + user.getRepo().getName() +
-                            " to another location.");
-                }
+                case "DeleteEvent" ->
+                    System.out.println("--- Deleted a resource in repository: " + user.get(0).getRepo().getName());
 
-                case "GollumEvent" -> {
-                    System.out.println("--- Updated a wiki page in repository " + user.getRepo().getName());
-                }
+                case "ForkEvent" ->
+                    System.out.println("--- Forked repository " + user.get(0).getRepo().getName() + " to another location.");
 
-                case "IssueCommentEvent" -> {
-                    System.out.println("--- Added " + (eventCount > 1 ? eventCount : "") +
-                            " comment(s) to issues in repository " + user.getRepo().getName());
-                }
 
-                case "IssuesEvent" -> {
-                    System.out.println("--- Opened/closed " + (eventCount > 1 ? eventCount : "") +
-                            " issue(s) in repository " + user.getRepo().getName());
-                }
+                case "GollumEvent" ->
+                        System.out.println("--- Updated a wiki page in repository " + user.get(0).getRepo().getName());
 
-                case "MemberEvent" -> {
-                    System.out.println("--- Added a new member to the repository: " + user.getRepo().getName());
-                }
 
-                case "PublicEvent" -> {
-                    System.out.println("--- Made repository " + user.getRepo().getName() + " public.");
-                }
+                case "IssueCommentEvent" ->
+                    System.out.println("--- Added " + (user.size() > 1 ? user.size() : "") +
+                            " comment(s) to issues in repository " + user.get(0).getRepo().getName());
 
-                case "PullRequestEvent" -> {
-                    System.out.println("--- Created " + (eventCount > 1 ? eventCount : "") +
-                            " pull request(s) in repository " + user.getRepo().getName());
-                }
 
-                case "PullRequestReviewEvent" -> {
-                    System.out.println("--- Reviewed " + (eventCount > 1 ? eventCount : "") +
-                            " pull request(s) in repository " + user.getRepo().getName());
-                }
+                case "IssuesEvent" ->
+                    System.out.println("--- Opened/closed " + (user.size() > 1 ? user.size() : "") +
+                            " issue(s) in repository " + user.get(0).getRepo().getName());
 
-                case "PullRequestReviewCommentEvent" -> {
-                    System.out.println("--- Added " + (eventCount > 1 ? eventCount : "") +
-                            " review comment(s) to pull request(s) in repository " + user.getRepo().getName());
-                }
 
-                case "PullRequestReviewThreadEvent" -> {
-                    System.out.println("--- Added review thread(s) in repository " + user.getRepo().getName());
-                }
+                case "MemberEvent" ->
+                    System.out.println("--- Added a new member to the repository: " + user.get(0).getRepo().getName());
 
-                case "PushEvent" -> {
-                    System.out.println("--- Pushed " + (eventCount > 1 ? eventCount : "") +
-                            " commit(s) to repository " + user.getRepo().getName());
-                }
 
-                case "ReleaseEvent" -> {
-                    System.out.println("--- Released new version(s) in repository " + user.getRepo().getName());
-                }
+                case "PublicEvent" ->
+                    System.out.println("--- Made repository " + user.get(0).getRepo().getName() + " public.");
 
-                case "SponsorshipEvent" -> {
-                    System.out.println("--- Managed sponsorship(s) for repository " + user.getRepo().getName());
-                }
 
-                case "WatchEvent" -> {
-                    System.out.println("--- Watched repository " + user.getRepo().getName());
-                }
+                case "PullRequestEvent" ->
+                    System.out.println("--- Created " + (user.size() > 1 ? user.size() : "") +
+                            " pull request(s) in repository " + user.get(0).getRepo().getName());
 
-                default -> {
+
+                case "PullRequestReviewEvent" ->
+                    System.out.println("--- Reviewed " + (user.size() > 1 ? user.size() : "") +
+                            " pull request(s) in repository " + user.get(0).getRepo().getName());
+
+                case "PullRequestReviewCommentEvent" ->
+                    System.out.println("--- Added " + (user.size() > 1 ? user.size() : "") +
+                            " review comment(s) to pull request(s) in repository " + user.get(0).getRepo().getName());
+
+                case "PullRequestReviewThreadEvent" ->
+                    System.out.println("--- Added review thread(s) in repository " + user.get(0).getRepo().getName());
+
+                case "PushEvent" ->
+                    System.out.println("--- Pushed " + (user.size() > 1 ? user.size() : "") +
+                            " commit(s) to repository " + user.get(0).getRepo().getName());
+
+                case "ReleaseEvent" ->
+                    System.out.println("--- Released new version(s) in repository " + user.get(0).getRepo().getName());
+
+                case "SponsorshipEvent" ->
+                    System.out.println("--- Managed sponsorship(s) for repository " + user.get(0).getRepo().getName());
+
+                case "WatchEvent" ->
+                    System.out.println("--- Watched repository " + user.get(0).getRepo().getName());
+
+                default ->
                     throw new UncorrectEvent();
-                }
 
             }
         }
