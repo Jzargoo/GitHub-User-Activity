@@ -1,6 +1,5 @@
 package COM.commands;
-import COM.API.Exceptions.EmptyResponseException;
-import COM.API.Exceptions.UncorrectEvent;
+import COM.API.Exceptions.*;
 import COM.model.User;
 import COM.API.GithubApiClient;
 
@@ -67,7 +66,7 @@ public class UserActivityCommand {
             users = Deserialize(name);
             arr = groupEvents();
 
-        } catch (EmptyResponseException e) {
+        }  catch (EmptyResponseException | RequestLimitException | RightsExceededException | UserNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
