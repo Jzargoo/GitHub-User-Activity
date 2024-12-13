@@ -61,12 +61,12 @@ public class UserActivityCommand {
 
     public void PresentUser() {
 
-        try{
+        try {
             users = Deserialize(name);
             arr = groupEvents();
-
-        }  catch (EmptyResponseException | RequestLimitException | RightsExceededException | UserNotFoundException e) {
+        } catch (EmptyResponseException | RequestLimitException | RightsExceededException | UserNotFoundException e) {
             System.out.println(e.getMessage());
+            arr = new ArrayList<>();
         }
 
         for(ArrayList<User> user: arr) {
