@@ -62,7 +62,6 @@ public class UserActivityCommand {
     public void PresentUser() {
 
         try{
-
             users = Deserialize(name);
             arr = groupEvents();
 
