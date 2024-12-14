@@ -27,7 +27,7 @@ public class UserActivityCommand {
         try {
             json = GithubApiClient.getUserActivity(n).body();
         } catch (URISyntaxException | IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new BadConnectionException();
         }
         mapper = new ObjectMapper();
         if(json == null || json.length() < 3) throw  new EmptyResponseException();
@@ -64,9 +64,9 @@ public class UserActivityCommand {
         try {
             users = Deserialize(name);
             arr = groupEvents();
-        } catch (EmptyResponseException | RequestLimitException | RightsExceededException | UserNotFoundException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            arr = new ArrayList<>();
+            return;
         }
 
         for(ArrayList<User> user: arr) {
